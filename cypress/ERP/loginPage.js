@@ -59,8 +59,11 @@ describe('Login page Suit', function () {
   it('TC-04: Verify that user is getting alert message when user name & password is empty', function () {
     cy.visit("https://erp.bjitgroup.com/")
     cy.get('.btn.btn-primary').click()
-    cy.wait(3000)
-    cy.get('input[type ="hidden"]').contains('Please fill in this field.')
+    cy.get('#password').invoke('prop', 'validationMessage').then((attributeVal) => {
+      //cy.log(`Attribute value: ${attributeVal}`)
+      expect(attributeVal).to.equal('Please fill in this field.')
+    })
+
 
   })
   it('TC-05: Verify that user is getting logged in successfully when user name correct & password is correct', function () {
@@ -71,6 +74,28 @@ describe('Login page Suit', function () {
     cy.get('.o_thread_title').should('have.text', 'Congratulations, your inbox is empty')
     cy.get('.oe_topbar_name').click()
     cy.get('a[data-menu ="logout"]').click()
+  })
+  it('TC-06: Verify that user is getting alert message when user name available & password is empty', function () {
+    cy.visit("https://erp.bjitgroup.com/")
+    cy.get('#login').type('abcde@gmail.com')
+    cy.get('.btn.btn-primary').click()
+    cy.get('#password').invoke('prop', 'validationMessage').then((attributeVal) => {
+      //cy.log(`Attribute value: ${attributeVal}`)
+      expect(attributeVal).to.equal('Please fill in this field.')
+    })
+
+
+  })
+  it('TC-07: Verify that user is getting alert message when user name empty & password is available', function () {
+    cy.visit("https://erp.bjitgroup.com/")
+    cy.get('#password').type('12345')
+    cy.get('.btn.btn-primary').click()
+    cy.get('#login').invoke('prop', 'validationMessage').then((attributeVal) => {
+      //cy.log(`Attribute value: ${attributeVal}`)
+      expect(attributeVal).to.equal('Please fill in this field.')
+    })
+
+
   })
 
 
