@@ -8,6 +8,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    specPattern:'cypress/ERP/*.js'
+    specPattern:'cypress/ERP/*.js',
+    testIsolation:false
   },
 });
