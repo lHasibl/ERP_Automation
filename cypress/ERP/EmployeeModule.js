@@ -71,7 +71,6 @@ describe('Employee Module Validation', function () {
     cy.get('ul#sidebar').find('li').contains('Employees').click()
     cy.reload()
     cy.get('.o_horizontal_separator.custom-bread-crumb').contains('Employee Dashboard')
-    
     cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
     cy.xpath("//strong[@modifiers='{}']//span[contains(text(),'Md. Hasibuzzaman')]").contains('Md. Hasibuzzaman')
     
@@ -82,11 +81,58 @@ describe('Employee Module Validation', function () {
     cy.get('.o_horizontal_separator.custom-bread-crumb').contains('Employee Dashboard')
     cy.xpath("//a[normalize-space()='Skill Review']").click()
     cy.get('.oe_menu_text').contains('Technical Skill Review').click()
-    cy.get('.breadcrumb>.active').contains('Technical Skill Review')
-    
+    cy.get('.breadcrumb>.active').contains('Technical Skill Review') 
     
   })
- 
+  it('TC-07: Verify that user navigate to the soft skill page  after clicking on the Soft skill Review button', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.get('.o_horizontal_separator.custom-bread-crumb').contains('Employee Dashboard')
+    cy.xpath("//a[normalize-space()='Skill Review']").click()
+    cy.get('.oe_menu_text').contains('Soft Skill Review').click()
+    cy.get('.breadcrumb>.active').contains('Soft Skill Review') 
+    
+  })
+  it('TC-08: Verify that user navigates to the Employee profile details page after clicking on the name of the Employee', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    cy.xpath("//div[@class='o_kanban_record_headings']").click()
+    cy.xpath("//div[normalize-space()='Contact Information']").contains('Contact Information')
+    
+  })
+  it('TC-09: Verify that Search button is working properly when searching by an employee name on the employee page', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    cy.get('.fa.fa-sm.fa-remove.o_facet_remove').click()
+    cy.get('.o_searchview_input').type('Hasib')
+    cy.get('.o_searchview_input').type('{enter}')
+    cy.xpath("//div[@class='o_kanban_view o_hr_employee_kanban o_kanban_ungrouped']").contains('Md. Hasib Al Zadid')
+  })
+  it('TC-10: Verify that filter is working properly when searching by a specific filter option on the employee page', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    cy.get('.o_searchview_more.fa.fa-search-plus').click()
+    cy.get('.fa.fa-sm.fa-remove.o_facet_remove').click()
+    cy.xpath("//button[normalize-space()='Filters']").click()
+    cy.xpath("//a[normalize-space()='Absent Today']").click()
+    cy.get('.o_kanban_view.o_hr_employee_kanban.o_kanban_ungrouped').should('exist')
+    cy.get('.breadcrumb>.active').click()
+  })
+  it('TC-11: Verify that Group by filter is working properly when searching by a specific group by option on the employee page', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    //cy.get('.o_searchview_more.fa.fa-search-plus').click()
+    cy.get('.fa.fa-sm.fa-remove.o_facet_remove').click()
+    cy.xpath("//span[@class='fa fa-bars']").click()
+    cy.xpath("//a[normalize-space()='Job Role']").click()
+    cy.wait(10000)
+    cy.get('.breadcrumb>.active').click()
+    cy.get('.o_content').contains('CEO')
+  })
   
 
 })
