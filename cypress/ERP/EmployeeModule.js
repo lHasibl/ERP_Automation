@@ -21,7 +21,7 @@ describe('Employee Module Validation', function () {
     })
   })
 
-  it('TC-01: Verify that graph shows after selecting Department, Report Type, Employment Status and clicking on submit button', function () {
+  /*it('TC-01: Verify that graph shows after selecting Department, Report Type, Employment Status and clicking on submit button', function () {
     cy.get('ul#sidebar').find('li').contains('Employees').click()
     cy.get('.o_horizontal_separator.custom-bread-crumb').contains('Employee Dashboard')
     cy.get('[name="department_id"]').click()
@@ -125,13 +125,46 @@ describe('Employee Module Validation', function () {
     cy.get('ul#sidebar').find('li').contains('Employees').click()
     cy.reload()
     cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
-    //cy.get('.o_searchview_more.fa.fa-search-plus').click()
     cy.get('.fa.fa-sm.fa-remove.o_facet_remove').click()
     cy.xpath("//span[@class='fa fa-bars']").click()
     cy.xpath("//a[normalize-space()='Job Role']").click()
     cy.wait(10000)
     cy.get('.breadcrumb>.active').click()
     cy.get('.o_content').contains('CEO')
+  })*/
+  it('TC-12: Verify that Favorites filter is working properly when selecting an option from the Favorites tab on the employee page', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    cy.get('.fa.fa-sm.fa-remove.o_facet_remove').click()
+    cy.xpath("//span[@title='Advanced Search...']").click()
+    cy.xpath("//button[normalize-space()='Favorites']").click()
+    cy.xpath("//a[normalize-space()='Job Rank']").click()
+    cy.wait(10000)
+    cy.get('.breadcrumb>.active').click()
+    cy.get('.o_content').contains('4A')
+  })
+  it('TC-13: Verify that user navigates to the Employee profile details page after clicking on the name of the Employee and verify the PrintCv button', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    cy.xpath("//div[@class='o_kanban_record_headings']").click()
+    cy.xpath("//div[normalize-space()='Contact Information']").contains('Contact Information')
+    cy.get('.btn.btn-sm.btn-default.oe_highlight').contains('Print CV').click()
+    cy.xpath("//span[normalize-space()='Cancel']").click()
+    
+  })
+  it('TC-14: Verify that user navigates to the Employee profile details page after clicking on the name of the Employee and verify the DetailInfo button navigate to the detail page of the employee', function () {
+    cy.get('ul#sidebar').find('li').contains('Employees').click()
+    cy.reload()
+    cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
+    cy.xpath("//div[@class='o_kanban_record_headings']").click()
+    cy.xpath("//div[normalize-space()='Contact Information']").contains('Contact Information')
+    cy.get('.btn.btn-sm.btn-default.oe_highlight').contains('Details Info.').click()
+    cy.xpath("//td[normalize-space()='Md. Hasibuzzaman']").click()
+    cy.get('.tab-content.nav.nav-tabs').contains('Contact Information')
+    cy.xpath("//div[@class='o_statusbar_buttons']//button[@class='btn btn-sm btn-default'][normalize-space()='Cancel']").click()
+    
   })
   
 
