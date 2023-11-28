@@ -21,7 +21,7 @@ describe('Employee Module Validation', function () {
     })
   })
 
-  /*it('TC-01: Verify that graph shows after selecting Department, Report Type, Employment Status and clicking on submit button', function () {
+  it('TC-01: Verify that graph shows after selecting Department, Report Type, Employment Status and clicking on submit button', function () {
     cy.get('ul#sidebar').find('li').contains('Employees').click()
     cy.get('.o_horizontal_separator.custom-bread-crumb').contains('Employee Dashboard')
     cy.get('[name="department_id"]').click()
@@ -131,13 +131,13 @@ describe('Employee Module Validation', function () {
     cy.wait(10000)
     cy.get('.breadcrumb>.active').click()
     cy.get('.o_content').contains('CEO')
-  })*/
+  })
   it('TC-12: Verify that Favorites filter is working properly when selecting an option from the Favorites tab on the employee page', function () {
     cy.get('ul#sidebar').find('li').contains('Employees').click()
     cy.reload()
     cy.xpath("//a[@class='oe_menu_leaf']//span[@class='oe_menu_text'][normalize-space()='Employees']").click()
     cy.get('.fa.fa-sm.fa-remove.o_facet_remove').click()
-    cy.xpath("//span[@title='Advanced Search...']").click()
+    //cy.xpath("//span[@title='Advanced Search...']").click()
     cy.xpath("//button[normalize-space()='Favorites']").click()
     cy.xpath("//a[normalize-space()='Job Rank']").click()
     cy.wait(10000)
